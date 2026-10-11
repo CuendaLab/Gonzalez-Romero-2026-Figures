@@ -22,8 +22,8 @@ diagrams were added afterwards in PowerPoint.
 ## Quick start
 
 ```bash
-git clone https://github.com/<user>/<repo>.git
-cd <repo>
+git clone https://github.com/CuendaLab/Gonzalez-Romero-2026-Figures.git
+cd Gonzalez-Romero-2026-Figures
 ```
 
 1. Get the data (see [Data](#data)) and build the three Seurat objects with the
