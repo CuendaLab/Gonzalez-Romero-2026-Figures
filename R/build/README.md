@@ -60,9 +60,17 @@ This is the longest pipeline (several hours; step `00` needs a fair amount of me
 
 ```
 UC_GSE125527/00_build_seurat_object.R   downloads from GEO and builds the object
+UC_GSE125527/01_cd4_cd8_marker_check.R  assigns each T subcluster to CD4 / CD8 / MAIT / gdT
 UC_GSE125527/02_tcell_umap.R            T cells, normalisation, PCA and UMAP
 UC_GSE125527/03_tcell_tissue_only.R     keeps the tissue cells only
 ```
+
+Step `01` is not optional: the T1-T17 subclusters of GSE125527 do not come with a
+CD4/CD8 label. It takes the phenotypic annotation published by Boland et al. (Fig. 4A)
+and, for the Naive/Memory clusters that the paper does not split, calls the lineage from
+the percentage of cells positive for CD4, CD8A/CD8B, TRDC and SLC4A10. It writes
+`output/cd4_cd8_classification/Tcell_cluster_marker_pct_positive.csv`, which step `02`
+reads to attach the lineage to every cell.
 
 Script `00` downloads the files from the GEO FTP into `GSE125527_data/` by itself.
 
