@@ -12,19 +12,28 @@ The input data are not included here: they are public and large.
 
 ## Human CRC — SCP1162 / GSE178341 (Pelka et al., *Cell* 2021)
 
-`CRC_SCP1162/00_build_tcells_object.R`
-
-Input (Broad Single Cell Portal, study SCP1162), placed in `data/raw/`:
+Run in order:
 
 ```
-scp1162_raw_seurat.rds       full-atlas Seurat object (matrix ALREADY normalised by the portal)
+CRC_SCP1162/00_load_scp1162_matrix.R    builds the full-atlas Seurat object from the portal matrix
+CRC_SCP1162/01_build_tcells_object.R    subsets the T/NK/ILC compartment and attaches the labels
+```
+
+Input, downloaded from the Broad Single Cell Portal (study SCP1162):
+
+```
+matrix.mtx.gz                the expression matrix (already normalised by the portal)
+matrix.genes.tsv             gene names
+matrix.barcodes.tsv          cell barcodes
 crc10x_tSNE_cl_TNKILC.tsv    T/NK/ILC portal clusters and UMAP coordinates
 metatable_v3_fix_v3.tsv      sample-level metadata (SpecimenType, donor_id)
 ```
 
-Output: `data/Tcells_final_con_UMAP_y_labels.rds` → `CRC_RDS`.
+Step `00` writes `scp1162_raw_seurat.rds` (the whole atlas, ~2.4 GB); step `01` expects
+that file and the two TSV tables in `data/raw/` and writes
+`data/Tcells_final_con_UMAP_y_labels.rds` → `CRC_RDS`.
 
-It selects the T/NK/ILC compartment (cTNI01–26) and attaches the coordinates, the
+Step `01` selects the T/NK/ILC compartment (cTNI01–26) and attaches the coordinates, the
 cluster labels and the Normal/Tumour group. It does **not** normalise: the portal values
 are already normalised, which is why the figure scripts do not normalise either.
 
